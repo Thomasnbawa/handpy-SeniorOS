@@ -30,7 +30,7 @@ jobs:
       run: zip -r Build.zip build
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
         path: Build.zip
