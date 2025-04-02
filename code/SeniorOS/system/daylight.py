@@ -16,7 +16,11 @@ def UITime(pages=True):
     t = time.localtime()
     return f'{t[3]:02}{':' if pages else ""}{t[4]:02}'
 
-GetCharWidth = lambda s: oled.DispChar(s, 0, 0, Colormode.noshow)[0][0] + int(len(s)/2)
+#GetCharWidth = lambda s: oled.DispChar(s, 0, 0, Colormode.noshow)[0][0] + int(len(s)/2)
+def GetCharWidth(s):
+    width = oled.DispChar(s, 0, 0, Colormode.noshow)  # 先获取返回值
+    return width[0][0] + int(len(s)/2)  # 再计算宽度
+
 AutoCenter = lambda string: 64 - GetCharWidth(string) // 2
 HomeTimeAutoCenter = AutoCenter
 def Box(x1, y1, x2, y2, fill = False):
