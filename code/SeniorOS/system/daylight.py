@@ -17,7 +17,9 @@ def UITime(pages=True):
     return f'{t[3]:02}{':' if pages else ""}{t[4]:02}'
 
 #GetCharWidth = lambda s: oled.DispChar(s, 0, 0, Colormode.noshow)[0][0] + int(len(s)/2)
-GetCharWidth = lambda s: oled.DispChar(s, 0, 0, 0)[0][0] + int(len(s)/2)
+
+def GetCharWidth(s):
+    return oled.DispChar(s, 0, 0, 0)[0][0] + int(len(s)/2)
 
 AutoCenter = lambda string: 64 - GetCharWidth(string) // 2
 HomeTimeAutoCenter = AutoCenter
