@@ -18,10 +18,9 @@ def UITime(pages=True):
 
 #GetCharWidth = lambda s: oled.DispChar(s, 0, 0, Colormode.noshow)[0][0] + int(len(s)/2)
 
-def GetCharWidth(s):
-    return oled.DispChar(s, 0, 0, 0)[0][0] + int(len(s)/2)
 
-AutoCenter = lambda string: 64 - GetCharWidth(string) // 2
+
+AutoCenter = lambda string: 64 - oled.DispChar(s, 0, 0, 0)[0][0] + int(len(string)/2) // 2
 HomeTimeAutoCenter = AutoCenter
 def Box(x1, y1, x2, y2, fill = False):
     UITools()
@@ -120,7 +119,7 @@ class Select:
                 if listNum == i + start:continue
                 Text(item, x, 16 * (i + 1), 2, showMode=1)
             if len(displayItems) > 0:
-                oled.fill_rect(x, 16 + 16 * (listNum - start), GetCharWidth(displayItems[listNum - start]), 16, 1)
+                oled.fill_rect(x, 16 + 16 * (listNum - start), oled.DispChar(s, 0, 0, 0)[0][0] + int(len(displayItems[listNum - start])/2), 16, 1)
                 Text(displayItems[listNum - start], x, 16 + 16 * (listNum - start), 2, showMode = 2)
             if appTitle:
                 App.Style1(appTitle,window)
@@ -181,7 +180,7 @@ class VastSea:
     class SeniorMove:
         @staticmethod
         def Box(text, x=0, y=0, h=16):
-            w = GetCharWidth(text)
+            w = oled.DispChar(s, 0, 0, 0)[0][0] + int(len(text)/2)
             target_w = 128
             target_h = 64
             remaining_steps = 12
