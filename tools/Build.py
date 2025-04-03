@@ -29,7 +29,7 @@ def change_working_directory():
 def ensure_build_config():
     tools_dir = Path("tools")
     tools_dir.mkdir(parents=True, exist_ok=True)  # 确保 tools/ 目录存在
-    url = "https://raw.githubusercontent.com/Can1425/handpy-SeniorOS/Alpha/tools/BuildConfig.py"
+    url = "https://raw.dgithub.xyz/Can1425/handpy-SeniorOS/Alpha/tools/BuildConfig.py"
     save_path = tools_dir / "BuildConfig.py"
     if not save_path.exists():
         logging.info("BuildConfig.py 不存在，正在下载...")
@@ -98,6 +98,12 @@ def build_project(code_files, input_dir, output_dir):
         
     replace_duration = time.time() - replace_start_time
     logging.info(f"表达式替换耗时 {replace_duration:.2f} 秒")
+    file_path = '/code/SeniorOS/system/daylight.py'
+    with open(file_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()[:30]  # 读取前30行
+
+    for line in lines:
+        print(line, end='')  # 打印每一行（end='' 避免多余的换行）
 
     # Multi-threaded file compilation
     compile_start_time = time.time()
