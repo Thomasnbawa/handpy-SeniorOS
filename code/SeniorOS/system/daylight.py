@@ -16,12 +16,14 @@ def UITime(pages=True):
     t = time.localtime()
     return f'{t[3]:02}{':' if pages else ""}{t[4]:02}'
 
-#GetCharWidth = lambda s: oled.DispChar(s, 0, 0, Colormode.noshow)[0][0] + int(len(s)/2)
+#def GetCharWidth(s):
+#    return oled.DispChar(s, 0, 0, Colormode.noshow)[0][0] + int(len(s)/2)
 
+def AutoCenter(string):
+    return 64 - oled.DispChar(s, 0, 0, 0)[0][0] + int(len(string)/2) // 2
 
-
-AutoCenter = lambda string: 64 - oled.DispChar(s, 0, 0, 0)[0][0] + int(len(string)/2) // 2
 HomeTimeAutoCenter = AutoCenter
+
 def Box(x1, y1, x2, y2, fill = False):
     UITools()
     if fill:oled.fill_rect(x1 + 1, y1 + 1, x2 - 2, y2 - 2, 0)
@@ -36,6 +38,7 @@ def ProgressBoxMove(x,y,w,h,progress,step=8):
         now+=(progress-now)//2
         time.sleep_ms(25)
     del OurUI;now;gc.collect()#苏联解体力(悲)
+
 class App:
     def Style1(appTitle:str, window = False):
         App.Style2(appTitle, window , True)
@@ -151,25 +154,31 @@ class VastSea:
             get = Select.Style3()
             Core.Data.Write("text", 'VastSeaSwitch', str(get))
         return
+    
+    def presuppose(num):
+        return str((num+1)*100)
+        
     def SpeedSet():
-        presuppose = lambda num:str((num+1)*100)
         while not button_a.is_pressed():
             options = Select.Style4(["高效", "优雅", "柔和"], False, "动画速率")
             if options != None:
                 VastSea.Transition()
-                Core.Data.Write("text", "VastSeaSpeed", presuppose(options))
+                Core.Data.Write("text", "VastSeaSpeed", VastSea.presuppose(options))
                 PagesManager.Main.Import('SeniorOS.system.pages', 'Message', True, "设置成功\n{}".format(["故事半古之人，功必倍之", "用心聆听，深深呼吸", "松风吹解带，山月照弹琴"][options]))
                 VastSea.Transition(False)
             VastSea.Transition(False)
+    
     @staticmethod
     def SelsetBoxMove():
         pass
+    
     @staticmethod   
     def Off():
         oled.fill(0)
         oled.show()
         time.sleep_ms(int(eval("[/Const('interval')/]")))
         return
+    
     @staticmethod   
     def Transition(mode:bool = True):
         from SeniorOS.system.ftreader import Animations
@@ -325,5 +334,5 @@ def TouchPadValueSet():
     TouchPad.config(sensitivity)
     return Core.Data.Write("text","touchPadValue",sensitivity)
 
-Text = lambda text,x,y,outMode,space = 1,maximum_x=126,returnX=5,returnAddy=16,showMode=1:\
-oled.DispChar(text, x, y, showMode, {0:Outmode.stop,1:Outmode.autoreturn,2:Outmode.ellipsis}.get(outMode), maximum_x, space, return_x = returnX, return_addy = returnAddy)
+def Text(text, x, y, outMode, space=1, maximum_x=126, returnX=5, returnAddy=16, showMode=1):
+    return oled.DispChar(text, x, y, showMode, {0:Outmode.stop,1:Outmode.autoreturn,2:Outmode.ellipsis}.get(outMode), maximum_x, space, return_x=returnX, return_addy=returnAddy)
