@@ -98,7 +98,7 @@ def build_project(code_files, input_dir, output_dir):
         
     replace_duration = time.time() - replace_start_time
     logging.info(f"表达式替换耗时 {replace_duration:.2f} 秒")
-    file_path = '/code/SeniorOS/system/daylight.py'
+    file_path = './SeniorOS/system/daylight.py'
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()[:30]  # 读取前30行
 
