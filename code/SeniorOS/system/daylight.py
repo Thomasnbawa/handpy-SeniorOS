@@ -7,11 +7,11 @@ import SeniorOS.lib.log_manager as LogManager
 import SeniorOS.lib.pages_manager as PagesManager
 #from SeniorOS.system.ftreader import Animations
 import framebuf
-import micropython
+#import micropython
 LogManager.Output("system/daylight.mpy", "INFO")
 
 # 缓存时间相关的字符串
-@micropython.native
+#@micropython.native
 def UITime(pages=True):
     t = time.localtime()
     return f'{t[3]:02}{':' if pages else ""}{t[4]:02}'
